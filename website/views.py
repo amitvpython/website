@@ -1,20 +1,14 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.postgres.search import SearchVector, SearchRank, SearchVector
 
 from articles.models import Article, Category, Author, Tag, FeatureRequests, Subscribers, GainerLoser
-from django.db.models import Q
-import json
-from rest_framework.response import Response
-from rest_framework.generics import GenericAPIView
 import requests,json
-from articles.models import Feature_Request,Subscriber
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import os
 import urllib
 from website.settings import BASE_DIR
-import random, time
 # import the logging library
 import logging
 from django.views.decorators.csrf import csrf_protect
@@ -482,7 +476,7 @@ def editor(request):
 
     with open(os.path.join(BASE_DIR, 'default_image.txt')) as f:
         default_image = f.read()
-    return render(request, 'website/articles.html', {
+    return render(request, 'website/article.html', {
         'categories': ",".join(Category.objects.values_list('name', flat=True)),
         'tags': ",".join(Tag.objects.values_list('name', flat=True)),
         'authors': Author.objects.values_list('name', flat=True),
@@ -538,57 +532,6 @@ def Featured_request(request):
             print('Subscribe Form Error', ee)
             JsonResponse({'data': 'success', 'message': ''})
 
-# class CryptoExchange(GenericAPIView):
-#     def post(self,request):
-#         data = request.data
-#         print(data,'converted')
-#         try:
-#             print(json.loads(request.body))
-#
-#             amount = int(data['amount'])
-#
-#             toCurrency = data['toCurrency']
-#             fromCurrency = data['fromCurrency']
-#
-#             url = 'https://cryptoscanner.co:8180/getData.php'
-#             params = {"type": "calc", "amount": amount, "toCurrency": toCurrency, "fromCurrency": fromCurrency}
-#             print(params)
-#             r = requests.post(url, data=params)
-#             p = r.json()
-#             # print(p)
-#
-#             _data = p['result']
-#             final_list = list()
-#             for c in _data:
-#                 temp_list = list()
-#                 t1 = c['conversion'][0]['pair']['from'] + ' to ' + c['conversion'][0]['pair']['to']
-#                 t2 = c['conversion'][1]['pair']['from'] + ' to ' + c['conversion'][1]['pair']['to']
-#                 t3 = 'https://cryptoscanner.co:8180/images/c-logos/' + c['conversion'][0]['company'] + '.png'
-#                 t4 = 'https://cryptoscanner.co:8180/images/c-logos/' + c['conversion'][1]['company'] + '.png'
-#                 tlink0=c['conversion'][0]['company']
-#                 tlink1=c['conversion'][1]['company']
-#                 link1 = company_link1(tlink0)
-#                 link2 = company_link2(tlink1)
-#                 _t1 = str(c['conversion'][0]['rate']) + '  ' + c['conversion'][0]['pair']['from']
-#                 _t2 = str(c['conversion'][1]['rate']) + '  ' + c['conversion'][1]['pair']['from']
-#
-#                 _t3 = str(c['conversion'][0]['unit_get']) + ' ' + c['conversion'][0]['pair']['to']
-#                 _t4 = str(c['conversion'][1]['unit_get']) + ' ' + c['conversion'][1]['pair']['to']
-#                 temp_list.append([t1, t2])
-#                 temp_list.append([{'image':t3 ,'link':link1} , {'image':t4,'link':link2}])
-#                 temp_list.append([_t1, _t2])
-#                 temp_list.append([_t3, _t4])
-#
-#                 final_list.append(temp_list)
-#
-#
-#             return Response({'status': 1,"data": final_list,'conversion_amount':p['result'][0]['conversion'][1]['unit_get']})
-#         except Exception as e:
-#             print(e)
-#             return Response({
-#                 'status': 0,
-#                 'data': str(e)
-#             })
 def CryptoExchange(request):
     if request.is_ajax():
         try:

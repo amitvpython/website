@@ -11,6 +11,8 @@ from datetime import timedelta
 # Create your models here.
 
 class Subscribers(models.Model):
+    objects = None
+
     class Meta:
         verbose_name = 'Subscriber'
         verbose_name_plural = 'Subscribers'
@@ -20,6 +22,7 @@ class Subscribers(models.Model):
         return f'{self.email} subscribed through {self.source}'
 
 class FeatureRequests(models.Model):
+    objects = None
     class Meta:
         verbose_name = 'FeatureRequest'
         verbose_name_plural = 'FeatureRequests'
@@ -32,6 +35,7 @@ class FeatureRequests(models.Model):
         return f'{self.email} made a request regarding "{self.subject}" on {self.created_on.date()}'
 
 class Author(models.Model):
+    objects = None
     image = models.ImageField(
         upload_to=f"images/authors/%Y/%m/%d/{uuid()}/", default="images/authors/default.png", null=True, blank=True
     )
@@ -53,6 +57,7 @@ class Author(models.Model):
         return url
 
 class Tag(models.Model):
+    objects = None
     name = models.TextField(max_length=200, unique=True)
 
     def __str__(self):
@@ -70,6 +75,7 @@ class Tag(models.Model):
         return url
 
 class Category(models.Model):
+    objects = None
     image = models.ImageField(
         upload_to=f"images/categories/%Y/%m/%d/{uuid()}/",
         default="images/categories/default.png",
@@ -95,6 +101,7 @@ class Category(models.Model):
         return url
 
 class GainerLoser(models.Model):
+    objects = None
     currency_name = models.CharField(max_length=100, null=False)
     currency_symbol = models.CharField(max_length=100, null=False)
     percentage_change = models.CharField(max_length=100, null=False)
@@ -107,6 +114,7 @@ def return_date_time():
     now = timezone.now()
     return now + timedelta(days=1)
 class Article(models.Model):
+    objects = None
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     heading = models.TextField(max_length=2000)
     image = models.ImageField(
@@ -148,6 +156,7 @@ class Article(models.Model):
 
 
 class Feature_Request(models.Model):
+    objects = None
     name = models.CharField(max_length=100)
     email = models.EmailField(max_length=250)
     subject = models.CharField(max_length=100)
@@ -157,5 +166,6 @@ class Feature_Request(models.Model):
         return '{0}'.format(self.name)
 
 class Subscriber(models.Model):
+    objects = None
     subscrib_email = models.EmailField(max_length=250)
     news_email = models.EmailField(max_length=250)
