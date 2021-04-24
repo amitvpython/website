@@ -1,0 +1,25 @@
+{% load imagefit %}
+
+<div class="owl-demo my-0 p-0 d-none category_carousel">
+    {% for category in categories %}
+    <div class="item m-0 p-0 text-center">
+        <div class="card border-0 bg-dark text-white carouselCard">
+
+            <a class="cat-content" href="/articles/{{category.name.split|join:'-'|lower}}">
+                <div class="image-wrapper">
+                    <img class="card-img carouselImg"
+                         src="{{ category.image.url|resize:'204x133,C' }}"
+                         onerror="this.src='/static/img/200x150-placeholder.png'"
+                         alt="Card image">
+                </div>
+                <div class="card-img-overlay carouselCard" style="background-color: rgba(0,0,0,0.5); ">
+                    <div class="carouselText">
+                        <small>{{category.name}}</small>
+                    </div>
+                </div>
+
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>

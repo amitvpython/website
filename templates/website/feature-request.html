@@ -1,0 +1,68 @@
+{% extends 'website/_base.html' %}
+
+
+{% block meta %}
+{% include 'website/_meta-common.html' %}
+{% endblock %}
+
+
+{% block content %}
+
+<header class="bg-custom-blue">
+    {% include 'website/_navbar.html' %}
+
+</header>
+{% include 'website/_category-carousel.html' with categories=categories %}
+
+<div class="container mt-5">
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <hr style=""/>
+
+            <form id="contactForm" onsubmit="featured_article(); return false;">
+                {% csrf_token %}
+                <p id="formResponseMessagefeatured" class="mt-3"
+                   style="width:100%;  text-align:center; color:red;"> </p>
+                <h1 class="text-center">Feature Request</h1>
+                <p class="text-center" style="padding-top:20px;">Want us to feature your Currency or Exchange? Have a
+                    feature you'd like to see?</p>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="text" id="contactName" name="name" class="form-control" placeholder="Your Name">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="email" id="contactEmail" name="email" class="form-control" placeholder="Your Email"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="text" id="contactSub" name="subject" class="form-control" placeholder="Your subject">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <textarea id="contactMessage" name="message" class="form-control" rows="5"
+                                      placeholder="Message"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class=" pt-4" style="width:100%; text-align: center;">
+                    <input type="submit" style="background-color: #28D070;margin: 0 0 20px;
+                                    padding: 10px 20px" class="btn btn-success" id="contactFormBtn" value="Submit"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% include 'website/_footer.html' with categories=categories %}
+
+{% endblock %}

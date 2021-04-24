@@ -1,0 +1,81 @@
+{% load imagefit %}
+
+<div id="stickThis" class="d-none d-sm-block">
+    <div class="right-gainer-widget">
+        <div class="green-widget">
+            <p class="heading-text"><span class="brdr">Top Gainer</span></p>
+            <div class="detail-row">
+                <div class="left-div">
+                    <div class="large">{{top_gainer.currency_name}}</div>
+                    <div class="small">{{top_gainer.currency_symbol}}</div>
+                </div>
+                <div class="right-div">
+                    <div class="large">{{top_gainer.percentage_change}}</div>
+                    <div class="small">{{top_gainer.currency_change}}</div>
+                </div>
+                <div class="cl"></div>
+            </div>
+        </div>
+        <div class="green-widget red-bg">
+                <p class="heading-text"><span class="brdr">Top Loser</span></p>
+                <div class="detail-row">
+                    <div class="left-div">
+                        <div class="large">{{top_loser.currency_name}}</div>
+                        <div class="small">{{top_loser.currency_symbol}}</div>
+                    </div>
+                    <div class="right-div">
+                            <div class="large">{{top_loser.percentage_change}}</div>
+                            <div class="small">{{top_loser.currency_change}}</div>
+                    </div>
+                    <div class="cl"></div>
+                </div>
+            </div>
+    </div>
+    <div class="right-video-section">
+        <div class="heading-blue">
+            VIDEOS
+        </div>
+        <div class="video-img">
+            <a target="_blank" href="https://www.facebook.com/cryptoscanner.co/videos/2296773557277268/">
+           <img src="{{ '/static/img/video-thumbnail.png'|resize:'365x202' }}" alt="video-image">
+        </a>
+        </div>
+        <div class="details">
+            <div class="featured-row">
+                <span class="featured">Featured</span><span class="shares"> 5 shares</span><div class="cl"></div>
+                <p class="heading-what">What if The Entire US Population Adopted Bitcoin?</p>
+                <p class="small-text">about a month ago &bull; 938 views</p>
+            </div>
+        </div>
+
+    </div>
+   
+        <div class="latest-news-container">
+                <div class="heading-blue">
+                        LATEST NEWS
+                </div>
+        {% for larticle in latest_articles %}
+        <div class="details-row">
+            <a href="/article/{{larticle.link.split|join:'-'|lower}}">
+                {{larticle.heading}}
+            </a>
+        </div>
+        {% endfor %}
+   
+</div>
+    <div class="card border-info border-10 border-left-0 border-right-0 border-bottom-0 rounded-0 bg-custom-blue">
+        <div class="subscribe-form-right">
+            <h4 class="card-title text-white">SUBSCRIBE FOR THE LATEST CRYPTOCURRENCY NEWS, INSIGHTS, AIRDROPS AND MORE</h4>
+            <small class="font-weight-light text-white"><em>Strictly no spam, only quality content*</em></small>
+            <form name="Right_Bar" onsubmit="news_email(this); return false;">
+                <div class="form-group">
+                    <p class="paragraph font-weight-light text-white my-3">Today's news in your inbox</p>
+                    <p class="mt-3 formResponseMessageNews" style="width:100%;  text-align:center; color:red;"></p>
+                </div>
+                <div class="form-group newsletter-form">
+                        <input type="email" class="form-control newsforminput newsletter-left" placeholder="Enter Email" name="email"
+                        required> <button type="submit" class="btn btn-sm btn-danger btn-subscribe">SUBSCRIBE</button></div>
+            </form>
+        </div>
+    </div>
+</div>

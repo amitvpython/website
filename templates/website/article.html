@@ -1,0 +1,156 @@
+{% extends 'website/_base.html' %}
+
+
+
+{% block content %}
+
+{% csrf_token %}
+
+
+<header class="bg-custom-blue">
+    {% include 'website/_navbar.html' %}
+    <!-- include advertisement -->
+</header>
+
+{% include 'website/_category-carousel.html' with categories=categories %}
+
+<div class="inner-page-top-shadow">
+    <div class="top-widget">
+        <iframe scrolling="no" allowtransparency="true" frameborder="0" allowtransparency="true" src="https://s.tradingview.com/embed-widget/tickers/?locale=en#%7B%22symbols%22%3A%5B%7B%22title%22%3A%22BTC%2FUSD%22%2C%22proName%22%3A%22BITFINEX%3ABTCUSD%22%7D%2C%7B%22title%22%3A%22ETH%2FUSD%22%2C%22proName%22%3A%22BITFINEX%3AETHUSD%22%7D%2C%7B%22description%22%3A%22XRP%2FUSD%22%2C%22proName%22%3A%22KRAKEN%3AXRPUSD%22%7D%2C%7B%22description%22%3A%22XLM%2FUSD%22%2C%22proName%22%3A%22BITFINEX%3AXLMUSD%22%7D%2C%7B%22description%22%3A%22TRX%2FUSD%22%2C%22proName%22%3A%22BITFINEX%3ATRXUSD%22%7D%5D%2C%22width%22%3A%22100%25%22%2C%22height%22%3A104%2C%22utm_source%22%3A%22ethereumworldnews.com%22%2C%22utm_medium%22%3A%22widget_new%22%2C%22utm_campaign%22%3A%22tickers%22%7D"></iframe>
+    </div>
+</div>
+<div class="inner-page">
+    <div class="social-icons-left" id="social-icons">
+        <ul>
+            <li>
+                <a href="https://www.linkedin.com/company/cryptoscanner/" target="_blank"><i class="fa fa-linkedin-square"></i></a>
+            </li>
+            <li>
+                <a href="https://twitter.com/Cryptoscannerco/" target="_blank"><i class="fa fa-twitter-square"></i></a>
+            </li>
+            <li>
+                <a href="https://www.facebook.com/cryptoscanner.co/" target="_blank"><i class="fa fa-facebook-square"></i></a>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="container mt-5 article-detail-page">
+
+        <div class="row" class="newsDescriptionSection">
+            <div class="col-12 col-md-8 col-lg-8 left-container">
+                <div id="parent" class="infinite-container detailed-article-container" data-spy="scroll">
+
+
+                    {% for article in articles %}
+                    <div class="card-wrapper infinite-item" data-link='/article/{{article.link|lower}}'>
+
+                        <div data-meta="/article/{{article.link|lower}}" class="meta d-none">
+                            {% include 'website/_meta-article.html' with article=article %}
+                        </div>
+
+                        {% if article.featured %}
+                        <p><small class="bg-danger px-3 py-1 text-white">Featured</small></p>
+                        {% endif %}
+                        <h1 class="responsive-h1 card-title">{{article.heading}}</h1>
+
+                        <div class="media mt-2 mb-2">
+                            <img class="mr-1 rounded-circle" src="/media/{{article.author.image}}"
+                                 onerror="this.src='https://www.atlassian.com/dam/jcr:13a574c1-390b-4bfb-956b-6b6d114bf98c/max-rehkopf.png'"
+                                 width="48" height="48" alt="{{article.author.name}}">
+                            <div class="media-body my-auto">
+                                <small>By </small><small class="text-primary"><a href="/author/{{article.author.name.split|join:'-'|lower}}">{{article.author.name}}</a></small>
+                                <div class="my-1"></div>
+                                <small>Posted on {{article.date}}</small>
+                            </div>
+                        </div>
+                        <div class="card-img" id="authorSection">
+                            <img src="/media/{{article.image}}" onerror="this.src='/media/images/articles/default.png'"
+                                 width="100%" alt="{{article.heading}}">
+                        </div>
+                        <div class="card-box mt-3 article">
+                            {{article.content|safe}}
+                        </div>
+                        <div class="bottom-tags-div">
+                            {% if article.get_tags|length > 0 %}
+                            <div class="d-flex flex-row my-0 my-sm-3">
+                                <p class="font-weight-light mr-3 tag-heading">Tags: </p>
+                                <ul class="inline-list">
+                                    {% for tag in article.get_tags %}
+                                    <li>
+                                        <a href="/tag/{{tag.name.split|join:'-'|lower}}" class="btn btn-outline-secondary btn-sm border-round-0">{{tag.name}}</a>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                            <div class="row my-0 my-sm-3">
+                                <div class="col-12 col-sm-4 my-3 my-sm-0">
+                                    <a class="btn py-2 bg-facebook btn-block anchor-underline-0 text-white" href="https://www.facebook.com/sharer.php?u=https://cryptoscanner.co/article/{{article.link|lower}}"
+                                       target="_blank">
+                                        <i class="fab fa-facebook-f mr-3"></i>Share on Facebook
+                                    </a>
+                                </div>
+                                <div class="col-12 col-sm-4 my-3 my-sm-0">
+                                    <a class="btn py-2 bg-twitter btn-block anchor-underline-0 text-white" href="https://twitter.com/intent/tweet?text={{article.heading}}&amp;url=https://cryptoscanner.co/article/{{article.link|lower}}"
+                                       target="_blank">
+                                        <i class="fab fa-twitter mr-3"></i>Share on Twitter
+                                    </a>
+                                </div>
+                                <div class="col-12 col-sm-4 my-3 my-sm-0">
+                                    <a class="btn py-2 bg-telegram btn-block anchor-underline-0 text-white" href="https://t.me/share/url?url=https://cryptoscanner.co/article/{{article.link|lower}}&text={{article.heading}}"
+                                       target="_blank">
+                                        <i class="fab fa-telegram-plane mr-3"></i>Share on Telegram
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="newsletter-content-area">
+                                <h3>Subscribe to Our Newsletter</h3>
+                                <p class="mt-3 formResponseMessageNews" style="width:100%;  text-align:center; color:red;"></p>
+                                <div class="newsletter-form">
+                                    <form class="article_left_subscribe">
+                                        <input type="email" class="form-control newsforminput newsletter-left"
+                                               placeholder="Enter Email" name="email" required> <button type="submit"
+                                                                                                        class="btn btn-sm btn-danger btn-subscribe-article btn-subscribe">SUBSCRIBE</button>
+                                    </form>
+                                </div>
+                                <p class="text">Strictly no spam, only quality content *</p>
+
+                            </div>
+                            <div class="my-0 my-sm-3 d-flex flex-column align-items-center">
+                                <a href="https://t.me/cryptoscannerco/" class="anchor-underline-0 text-white">
+                                    <img src="/static/img/cta_telegram.png" class="img-fluid" alt="telegram-logo">
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-12 col-md-4 col-lg-4 right-panel">
+                <div class="right-inner">
+                    {% include 'website/rightbar.html' with latest_articles=latest_articles %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<a href="#parent" class="btn btn-md btn-secondary p-3 anchor-top">
+    <i class="fas fa-chevron-up"></i>
+</a>
+
+{% if articles.has_next %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-8">
+            <div class="loading text-center">
+                <img src="https://ubisafe.org/images/gif-transparent-loading-4.gif" height="100px" alt="loader gif">
+            </div>
+        </div>
+    </div>
+    <a class="infinite-more-link d-none" href="{{current_article|lower}}&page={{ articles.next_page_number }}">More</a>
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+
+    <title>Signin Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="/static/vendors/bootstrap/css/bootstrap.min.css">
+</head>
+
+<body class="container">
+<div class="row">
+    <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
+        <div class="border p-5">
+            {% if message is not None %}
+            <div class="alert alert-danger" role="alert">{{message}}</div>
+            {% endif %}
+            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <form action="/login/" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Username</label>
+                    <input type="text"
+                           class="form-control"
+                           id="exampleInputEmail1"
+                           name="username"
+                           aria-describedby="emailHelp"
+                           placeholder="Enter username">
+                    <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.-->
+                    <!--</small>-->
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password</label>
+                    <input type="password"
+                           class="form-control"
+                           id="exampleInputPassword1"
+                           name="password"
+                           placeholder="Password">
+                </div>
+                <!--<div class="form-group form-check">-->
+                    <!--<input type="checkbox" class="form-check-input" id="exampleCheck1">-->
+                    <!--<label class="form-check-label" for="exampleCheck1">Remember me</label>-->
+                <!--</div>-->
+                <button type="submit" class="btn btn-primary">Sign in</button>
+                <a href="{% url 'website__index' %}" class="btn btn-outline-primary">Go back to website</a>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+<script src="/static/vendors/jquery/js/jquery-3.2.1.min.js"></script>
+<script src="/static/vendors/popper.js/js/popper.min.js"></script>
+<script src="/static/vendors/bootstrap/js/bootstrap.min.js"></script>
+</html>

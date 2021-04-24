@@ -1,0 +1,66 @@
+.shadow-none {
+    box-shadow: none !important;
+}
+
+.letter-spacing-1 {
+    letter-spacing: 0.1rem !important;
+}
+
+.letter-spacing-2 {
+    letter-spacing: 0.2rem !important;
+}
+
+.letter-spacing-3 {
+    letter-spacing: 0.3rem !important;
+}
+
+.letter-spacing-4 {
+    letter-spacing: 0.4rem !important;
+}
+
+.letter-spacing-5 {
+    letter-spacing: 0.5rem !important;
+}
+
+.bg-transparent {
+    background: transparent !important;
+}
+
+#titlebar .custom_link_button {
+    font-weight: 500 !important;
+    color: white;
+    padding: .9rem 2rem;
+}
+
+#titlebar .custom_link, #titlebar .custom_link_button {
+    font-size: 0.8rem !important;
+}
+
+#titlebar .custom_link_button:hover {
+    background-color: #2876af;
+    color: white;
+}
+
+@media (min-width: 0) {
+    .card-deck .card {
+        flex: none;
+    }
+}
+
+@media (min-width: 350px) {
+    .card-deck .card {
+        flex: none;
+    }
+}
+
+@media (min-width: 576px) {
+    .card-deck .card {
+        flex: 0 0 calc(50% - 30px);
+    }
+}
+
+@media (min-width: 992px) {
+    .card-deck .card {
+        flex: 0 0 calc(50% - 30px);
+    }
+}

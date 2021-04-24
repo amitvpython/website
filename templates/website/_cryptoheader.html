@@ -1,0 +1,77 @@
+{% load static %}
+{% load imagefit %}
+<div id="blueheader">
+    <header>
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-md">
+                <a href="{% url 'website__index' %}" class="navbar-brand">
+                    <img height="233" width="70" src="{{ '/static/img/crypto_white.png'|resize:'233x70' }}" alt="crypto logo">
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+                        aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon">
+                            <i class="fas fa-bars"></i>
+                        </span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#feature-request-id">Feature Request</a></li>
+                        <li class="nav-item"><a class="nav-link link-border" href="http://cryptoscanner.co/coming-soon">How
+                            To Make Money From Cryptocurrency?</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <section id="sw-segment" class="section-price">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <h2 class="text-center">The Smartest Cryptocurrency Price Search Engine On Planet Earth</h2>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <p class="text-center">Scan for the cheapest cryptocurrency rates on the internet. Over 300
+                                cryptocurrencies from more than 120 exchanges with one click of a button. ⚡</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui centered container">
+            <form action="" id="form-scan">
+                <div class="row currency-selector">
+                    <div class="ui big right labeled input currency-dropdown">
+                        <div class="ui basic label">I have</div>
+                        <input type="text" placeholder="Amount" name="amount" id="amount" value="1">
+                        <select class="custom-select d-block " name="from_currency" id="from_currency" disabled
+                                required>
+                            <option value="">Select Currency</option>
+                        </select>
+                    </div>
+                    <button id="sw-exchange" class="ui inverted button exchange-currencies" role="button">
+                        <img src="images/switch.png" id="sw-switch">
+                    </button>
+                    <div class="ui big right labeled input currency-dropdown">
+                        <div class="ui basic label">I want</div>
+                        <input type="text" placeholder="" name="txt_you_get" id="txt_you_get" value="">
+                        <select class="custom-select d-block" name="to_currency" id="to_currency" disabled required>
+                            <option value="">Select Currency</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="text-center" style="margin:40px 0 20px">
+                            <button type="submit" class="btn btn-primary btn_calc">Scan exchanges</button>
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+                        <p class="text-center"><font color="white"> *Prices do not include exchange fees.</font></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>

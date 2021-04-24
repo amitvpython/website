@@ -1,0 +1,11 @@
+var _ajax=function(url,data){return new Promise(function(resolve,reject){$.ajax({headers:{"X-CSRFToken":$("input[name*='csrfmiddlewaretoken']").val()},url:url,type:'POST',contentType:'application/json; charset=utf-8',dataType:'json',data:JSON.stringify(data),success:function(result){resolve(result)},error:function(e){console.log(e);reject(e)}})})};var card=function(config){var featured='';if(config.featured){featured='<div class="featured">Featured</div>'}
+return `<a href="/article/${config.link}"  class="card mb-4 anchor-underline-0">
+      <div class="pic">${featured}<img class="card-img-top img-fluid" src="/media/${config.image}" onerror="this.src='/media/images/articles/default.png'" alt="{config.heading}"></div>
+        <div class="card-body  text-dark font-weight-normal">
+            <h6 class="card-title" style="text-decoration: none;">${config.heading}</h6>
+            <p class="card-text">
+            <small>${config.date}</small> <small>by ${config.author__name}</small>
+            </p>
+            <p class="text-formatting">${config.description}</p>
+        </div>
+    </a>`};var generateRow=function(category,articles){for(let i=0;i<articles.length;i++){console.log(articles[i]);var element=$.parseHTML(card({link:articles[i].link.toLowerCase(),heading:articles[i].heading,image:articles[i].image,author__name:articles[i].author__name,date:articles[i].date,description:articles[i].description,featured:articles[i].featured,}))[0];var elementmain=$('[data-parent="'+category+'"]')[0];$(element).appendTo(elementmain).hide().fadeIn(1500)}};$('.load-more-button').on('click',function(){var category=$(this).attr('data-category');var next=$(this).attr('data-next');_ajax('/index/',{'category__name':category,'next':next}).then(function(data){console.log(data);generateRow(category,data.data.articles);$('.load-more-button[data-category="'+category+'"]').attr('data-next',parseInt($('.load-more-button[data-category="'+category+'"]').attr('data-next'))+data.data.articles.length);if(parseInt($('.load-more-button[data-category="'+category+'"]').attr('data-next'))>=data.data.max){$('.load-more-button[data-category="'+category+'"]').addClass('d-none')}})});if($("#stickThis").length>0){$("#stickThis").stick_in_parent()}

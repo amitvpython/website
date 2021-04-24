@@ -1,0 +1,75 @@
+{% extends 'website/_base.html' %}
+
+
+{% block meta %}
+{% include 'website/_meta-category.html' with current_category=current_category %}
+{% endblock %}
+
+
+{% block content %}
+
+{% csrf_token %}
+
+<header class="bg-custom-blue">
+    {% include 'website/_navbar.html' %}
+
+</header>
+{% include 'website/_category-carousel.html' with categories=categories %}
+
+{% if articles|length > 0 %}
+
+<div class="container-fluid px-5 mt-5" id="searchResult">
+    <div class="col-md-8">
+        <h1 id="parent" class="responsive-h2 my-5">Search Result for "<strong class="gray">{{searchquery}}</strong>"</h1>
+        <ul class="list-unstyled" data-parent="all-articles" style="overflow-y:scroll;">
+            {% for article in articles %}
+            <a class="anchor-underline-0 text-dark" href='/article/{{article.link|lower}}'>
+                <div class="media d-flex flex-column flex-sm-row my-1 my-md-3">
+                    <img src='/media/{{article.image}}'
+                         onerror="this.src='/static/img/200x150-placeholder.png'"
+                         class="align-self-start mr-3" width="200px" alt="{{article.heading}}">
+                    <div class="media-body">
+                        <h6 class="my-3 my-sm-0">{{article.heading}}</h6>
+                        <p class="my-1 my-sm-0">
+                            <small class="text-muted">Posted on {{article.date}}</small> | <small class="text-muted">By {{article.author__name}}</small>
+                        </p>
+                        <p class="my-1 my-sm-0">
+                            <small class="text-muted">{{article.description}}</small>
+                        </p>
+                    </div>
+                </div>
+                <hr>
+            </a>
+            {% endfor %}
+        </ul>
+        <button data-max="{{max}}"
+                data-category="{{current_category}}"
+                data-next="{{articles|length}}"
+                class="btn btn-block btn-outline-primary load-more-button3 my-4">More Posts</button>
+        {% block comment %}
+        {% if articles.has_next %}
+        <a class="infinite-more-link d-none" href="?page={{articles.next_page_number}}">More</a>
+        {% endif %}
+
+        {% endblock %}
+    </div>
+</div>
+
+{% else %}
+
+<div class="container-fluid px-5 mt-5" id="searchResult">
+    <div class="col-md-8">
+        <h1 id="parent" class="responsive-h2 my-5">Search Result for "<strong class="gray">{{searchquery}}</strong>" </h1>
+        <div id="child" class="no-results">No Result Found </div>
+    </div>
+</div>
+
+{% endif %}
+
+<a href="#parent" class="btn btn-md btn-secondary p-3 anchor-top">
+    <i class="fas fa-chevron-up"></i>
+</a>
+
+{% include 'website/_footer.html' with categories=categories %}
+
+{% endblock %}

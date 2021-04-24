@@ -1,0 +1,142 @@
+{% extends 'website/_base.html' %}
+
+{% block meta %}
+{% include 'website/_meta-common.html' %}
+{% endblock %}
+
+{% block content %}
+
+{% csrf_token %}
+{% load imagefit %}
+
+<header class="bg-custom-blue">
+    <div id="particles-js"></div>
+    <div class="header-home">
+
+
+        {% include 'website/_navbar.html' %}
+        <div class="top-widget">
+            <iframe style="border: 0; overflow: hidden" src="https://s.tradingview.com/embed-widget/tickers/?locale=en#%7B%22symbols%22%3A%5B%7B%22title%22%3A%22BTC%2FUSD%22%2C%22proName%22%3A%22BITFINEX%3ABTCUSD%22%7D%2C%7B%22title%22%3A%22ETH%2FUSD%22%2C%22proName%22%3A%22BITFINEX%3AETHUSD%22%7D%2C%7B%22description%22%3A%22XRP%2FUSD%22%2C%22proName%22%3A%22KRAKEN%3AXRPUSD%22%7D%2C%7B%22description%22%3A%22XLM%2FUSD%22%2C%22proName%22%3A%22BITFINEX%3AXLMUSD%22%7D%2C%7B%22description%22%3A%22TRX%2FUSD%22%2C%22proName%22%3A%22BITFINEX%3ATRXUSD%22%7D%5D%2C%22width%22%3A%22100%25%22%2C%22height%22%3A104%2C%22utm_source%22%3A%22ethereumworldnews.com%22%2C%22utm_medium%22%3A%22widget_new%22%2C%22utm_campaign%22%3A%22tickers%22%7D"></iframe>
+        </div>
+    </div>
+
+
+
+    <div class="container-fluid">
+        <div class="card bg-transparent border-0">
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-12 col-sm-8 offset-sm-2">
+                        <h1 class="text-white text-center">
+                            THE SMARTEST CRYPTOCURRENCY PRICE SEARCH ENGINE ON PLANET EARTH
+                        </h1>
+                        <h4 class="mt-1 mt-sm-2 text-white text-center">Cryptocurrency Rates | Cryptocurrency News |
+                            Cryptocurrency Videos</h4>
+                        <p class="my-1 mx-0 px-0 mx-sm-5 px-sm-5 my-sm-5 text-white text-center">
+                            Scan for the cheapest cryptocurrency rates on the internet and stay up to date with the
+                            latest cryptocurrency news. Over 300 cryptocurrencies from more than 120 exchanges with one
+                            click of a button. 🚀
+                        </p>
+                        {% include 'website/_exchange.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+
+<div id="comparisonTable" class="container my-5 px-5" style="display: none;">
+    <div class="row table-responsive">
+
+        <table class="display table table-borderless border-none" id="price-table" style="border:1px solid #ddd; border-radius: 0px;display: none">
+            <thead class="text-center border-0" style="background: #fafafa">
+            <tr>
+                <th class="py-3">Pair</th>
+                <th class="py-3">Exchange</th>
+                <th class="py-3">Price</th>
+                <th class="py-3">You Get</th>
+            </tr>
+            </thead>
+
+            <tbody class="bg-white text-center">
+
+            </tbody>
+        </table>
+
+        <div class="row no_data" style="display: none">
+            <div class="col-md-12">
+                <p class="text-center">No currency or exchange.</p>
+            </div>
+        </div>
+        <div class="row" id='pagination' style="display:none">
+            <div class="col-md-6">
+                <nav aria-label="Page navigation price-navigation">
+                    <ul class="pagination"></ul>
+                </nav>
+            </div>
+            <div class="col-md-6">
+                <p class="text-right"><a href="{% url 'website__featurerequest' %}" style="color:#666">Can't see your
+                    currency or exchange?</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'website/_category-carousel.html' with categories=categories %}
+{% include 'website/_featured-carousel.html' with featured_articles_overall=featured_articles_overall imagefit_featured=imagefit_featured %}
+
+<div class="container mt-1" id="mediaSection">
+    <div class="row home-articles-list">
+        <div class="col-sm-8 col-md-8 col-lg-8 left-container">
+            {% for categories in categories__articles %}
+            {% for category, articles in categories.iteritems %}
+            {% if articles|length > 0 %}
+            <div class="mb-5">
+                <div class="heading"><span>{{category}}</span></div>
+                <div data-parent="{{category}}" class="card-deck">
+                    {% for a in articles %}
+                    <a href="/article/{{a.link.split|join:'-'|lower}}" class="card mb-4 anchor-underline-0">
+                        <div class="pic">
+                            {% if a.featured %}<div class="featured">Featured</div>{% endif %}
+                            {% with '/media/'|add:a.image|add:'' as image_static %}
+
+                            <img class="card-img-top img-fluid" height="{{imagefit_article|slice:'0:3' }}" width="{{imagefit_article|slice:'4:7' }}" src="{{image_static|resize:imagefit_article}}" onerror="this.src='/static/img/700x500-placeholder.jpg'"
+
+                                 alt="Card image cap" />
+
+                            {% endwith %}
+                        </div>
+                        <div class="card-body text-dark font-weight-normal">
+
+                            <h6 class="card-title text_decoration" >{{a.heading}}</h6>
+                            <p class="card-text"><small>{{a.date}}</small> <small>by {{a.author__name}}</small> </p>
+                            <p class="text-formatting">{{a.description|truncatewords:30 }}</p>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+                {% if articles|length == 2 %}
+                <div class="text-center">
+                    <button data-category="{{category}}" data-next="{{articles|length}}" class="load-more-button px-3 py-1 btn-sm-outline border">LOAD
+                        MORE</button>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4 right-panel">
+            <div class="right-inner">
+                {% include 'website/rightbar.html' with latest_articles=latest_articles %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% include 'website/_footer.html' with categories=categories %}
+
+{% endblock %}

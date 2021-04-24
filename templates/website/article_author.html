@@ -1,0 +1,114 @@
+{% extends 'website/_base.html' %}
+
+{% if meta is not None %}
+{{meta.heading}}
+{% block meta %}
+
+<title>{{author_details.name}}</title>
+<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+
+<meta name="description" content="{{author_details.description}}">
+<meta name="robots" content="index,follow" />
+<meta name="author" content="{{author_details.name}}">
+<meta name="language" content="EN">
+<meta name="og:image" content="https://cryptoscanner.co/media/{{author_details.image}}"/>
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="author" />
+<meta property="og:title" content="{{author_details.name}}" />
+<meta property="og:site_name" content="Cryproscanner" />
+<meta name="og:description" content="{{author_details.description}}"/>
+<link rel="canonical" href="https://cryptoscanner.co/author/{{author_details.name.split|join:'-'|lower}}"/>
+
+{% endblock %}
+{% endif %}
+
+{% block content %}
+
+
+
+{% csrf_token %}
+
+<header class="bg-custom-blue">
+    {% include 'website/_navbar.html' %}
+
+</header>
+
+{% include 'website/_category-carousel.html' with categories=categories %}
+
+
+<div class="inner-page-top-shadow">
+    <div class="top-widget">
+        <iframe scrolling="no" allowtransparency="true" frameborder="0" allowtransparency="true" src="https://s.tradingview.com/embed-widget/tickers/?locale=en#%7B%22symbols%22%3A%5B%7B%22title%22%3A%22BTC%2FUSD%22%2C%22proName%22%3A%22BITFINEX%3ABTCUSD%22%7D%2C%7B%22title%22%3A%22ETH%2FUSD%22%2C%22proName%22%3A%22BITFINEX%3AETHUSD%22%7D%2C%7B%22description%22%3A%22XRP%2FUSD%22%2C%22proName%22%3A%22KRAKEN%3AXRPUSD%22%7D%2C%7B%22description%22%3A%22XLM%2FUSD%22%2C%22proName%22%3A%22BITFINEX%3AXLMUSD%22%7D%2C%7B%22description%22%3A%22TRX%2FUSD%22%2C%22proName%22%3A%22BITFINEX%3ATRXUSD%22%7D%5D%2C%22width%22%3A%22100%25%22%2C%22height%22%3A104%2C%22utm_source%22%3A%22ethereumworldnews.com%22%2C%22utm_medium%22%3A%22widget_new%22%2C%22utm_campaign%22%3A%22tickers%22%7D"></iframe>
+    </div>
+</div>
+<div class="inner-page">
+
+    <div class="container mt-5 article-detail-page">
+
+        <div class="row" class="newsDescriptionSection">
+            <div class="col-12 col-md-8 col-lg-8 left-container">
+
+
+                <div>
+                    <div class="article-heading-row">
+                        <div class="pic"><img src='/media/{{author_details.image}}' class="align-self-start mr-3" alt="author-image" /></div>
+                        <div class="right-details">
+
+                            <h1> {{author_details.name}}</h1>
+                            <ul class="social-icons">
+                                <li><a href="https://www.facebook.com/sharer.php?u=https://cryptoscanner.co/author/{{author_details.name.split|join:'-'|lower}}"
+                                       target="_blank"><i class="fa fa-facebook-square"></i></a></li>
+                                <li><a href="https://twitter.com/intent/tweet?text={{article.heading}}&amp;url=https://cryptoscanner.co/author/{{author_details.name.split|join:'-'|lower}}"
+                                       target="_blank"><i class="fa fa-twitter-square"></i></a></li>
+                                <li><a href="https://t.me/share/url?url=https://cryptoscanner.co/author/{{author_details.name.split|join:'-'|lower}}"
+                                       target="_blank"><i class="fa fa-linkedin-square"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="cl"></div>
+                    </div>
+                    <div class="heading-brdr">posts by {{author_details.name}}</div>
+                    <div  data-parent="author_details_div">
+                        {% for a in articles %}
+
+                            <div class="articles-row">
+                                <a class="anchor-underline-0 text-dark" href='/article/{{a.link|lower}}'>
+                                    <div class="pic">
+                                        <img src="/media/{{a.image}}" onerror="this.src='/static/img/700x500-placeholder.jpg'" alt="article pic" />
+                                    </div>
+                                    <div class="details">
+                                        <p class="featured">
+                                            {% if a.featured == True %}<div class="featured">Featured</div> {% endif %}
+
+                                        </p>
+                                        <h6>{{a.heading}}</h6>
+                                        <p>{{a.description|truncatewords:30 }}</p>
+                                    </div>
+                                    <div class="cl"></div>
+                                </a>
+                            </div>
+
+                            {% endfor %}
+                    </div>
+                    {% if articles|length == 4 %}
+                    <div class="text-center">
+                        <button data-category="{{author_details.name}}" data-next="{{articles|length}}" class="load-more-button1 btn btn-block btn-outline-primary load-more-button my-4">LOAD
+                            MORE </button>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-12 col-md-4 col-lg-4 right-panel">
+                <div class="right-inner">
+                    {% include 'website/rightbar.html' with latest_articles=latest_articles %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a href="#parent" class="btn btn-md btn-secondary p-3 anchor-top">
+    <i class="fas fa-chevron-up"></i>
+</a>
+
+
+{% endblock %}

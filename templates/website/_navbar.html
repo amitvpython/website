@@ -1,0 +1,45 @@
+{% load static %}
+{% load imagefit %}
+
+<nav id="titlebar" class="navbar navbar-expand-md navbar-dark">
+    
+    <a id="logo" class="navbar-brand" href="{% url 'website__index' %}">
+        <img src="{{ '/static/img/crypto_white.png'|resize:'226x70' }}" class="brand-logo-image" alt="crypto logo">
+    </a>
+  
+    <button class="navbar-toggler" style="color:white;" type="button" data-toggle="collapse"
+        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse text-uppercase" id="navbarSupportedContent">
+      
+        <div class="mr-auto"></div>
+        <div class="search-bar">
+                <a href="#" class="search_top_link">Search</a>
+                <div class="search-div">
+                    <form>
+                        <input type="search" />
+                        <input type="submit" value="Go" />
+                    </form>
+                </div>
+            </div>
+        <ul class="navbar-nav my-2 my-lg-0 align-items-center text-white">
+            <li class="nav-item">
+                <a class='nav-link btn btn-lg custom_link_button
+                   {% if request.resolver_match.url_name == "website__index" %}border{% endif %}' data-home=""
+                    href="{% url 'website__index' %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class='nav-link btn btn-lg custom_link_button
+                   {% if request.resolver_match.url_name == "website__category" %}border{% endif %}'
+                    data-href="/articles/" href="{% url 'website__category' %}">News</a>
+            </li>
+            <li class="nav-item">
+                <a class='nav-link btn btn-lg custom_link_button
+                   {% if request.resolver_match.url_name == "website__featurerequest" %}border{% endif %}'
+                    data-href="/feature-request/" href="{% url 'website__featurerequest' %}">Feature Requests</a>
+            </li>
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,68 @@
+<meta charset="utf-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+
+<meta name="google-site-verification" content="cmMeSgAk6SS5-R9Sx1XpKYUx3sm5BoJ1y4H-SeIJn-s" />
+<meta name="robots" content="noodp,noydir">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<meta name="application-name" content="CryptoScanner">
+<meta name="copyright" content="Copyright &amp;copy; 2018 CryptoScanner All rights reserved.">
+<meta name="author" content="CryptoScanner">
+<meta name="description" content="{{article.description}}">
+
+<link rel="icon" href="/static/img/favicon.ico" type="image/png">
+<link rel="shortcut icon" href="/static/img/favicon.ico">
+
+<meta property="fb:app_id" content="179259906198627" />
+<meta property="og:image" content="https://cryptoscanner.co/media/{{article.image}}">
+<meta property="og:type" content="article">
+<meta property="og:description" content="{{article.description}}">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="{{article.heading}}">
+<meta property="og:description" content="{{article.description}}">
+<meta property="og:url" content="https://cryptoscanner.co/article/{{article.link|lower}}">
+<meta property="og:site_name" content="CryptoScanner">
+<meta property="og:updated_time" content="{{article.created_date}}">
+<meta property="og:image" content="https://cryptoscanner.co/media/{{article.image}}">
+<meta property="og:image:secure_url" content="https://cryptoscanner.co/media/{{article.image}}">
+<meta property="og:image:alt" content="{{article.description}}">
+<meta property="og:image:width" content="645">
+<meta property="og:image:height" content="430">
+
+
+
+<title>{{article.heading}}</title>
+
+<link rel="canonical" href="https://cryptoscanner.co/article/{{article.link|lower}}"/>
+<meta property="article:publisher" content="https://www.facebook.com/cryptoscanner.co">
+
+{% if article.get_tags|length > 0 %}
+{% for tag in article.get_tags %}
+<meta property="article:tag" content="{{tag.name}}">
+{% endfor %}
+{% endif %}
+
+{% if article.get_categories|length > 0 %}
+{% for cat in article.get_categories %}
+<meta property="article:tag" content="{{cat.name}}">
+{% endfor %}
+{% endif %}
+
+<meta property="article:published_time" content="{{article.date}}">
+<meta property="article:modified_time" content="{{article.modified_date}}">
+
+<meta name="twitter:image" content="https://cryptoscanner.co/media/{{article.image}}">
+<meta name="twitter:url" content="https://cryptoscanner.co/article/{{article.link|lower}}">
+<meta name="twitter:title" content="{{article.heading}}">
+<meta name="twitter:description" content="{{article.description}}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@Cryptoscannerco">
+<meta name="twitter:creator" content="@Cryptoscannerco">
+
+
+<link rel="icon" href="https://cryptoscanner.co/static/logos/cryptoscanner-icon.png" sizes="32x32">
+<link rel="icon" href="https://cryptoscanner.co/static/logos/cryptoscanner-icon.png" sizes="192x192">
+<link rel="apple-touch-icon-precomposed" href="https://cryptoscanner.co/static/logos/cryptoscanner-icon.png">
+<meta name="msapplication-TileImage" content="https://cryptoscanner.co/static/logos/cryptoscanner-icon.png">
